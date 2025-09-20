@@ -3,9 +3,10 @@ package com.emobile.springtodo.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
 
-
-public class ToDoDto {
+public class ToDoDto implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -16,7 +17,17 @@ public class ToDoDto {
     @Size(max = 500, message = "Description must not exceed 500 characters")
     private String description;
 
-    private Boolean completed;
+    private boolean completed; // был Boolean
+
+    public ToDoDto() {
+    }
+
+    public ToDoDto(Long id, String title, String description, boolean completed) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.completed = completed;
+    }
 
     public Long getId() {
         return id;
@@ -26,11 +37,11 @@ public class ToDoDto {
         this.id = id;
     }
 
-    public Boolean getCompleted() {
+    public boolean isCompleted() {
         return completed;
     }
 
-    public void setCompleted(Boolean completed) {
+    public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 

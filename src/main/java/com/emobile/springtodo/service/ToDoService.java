@@ -48,10 +48,13 @@ public class ToDoService {
     @CacheEvict(value = "postgres", allEntries = true)
     public ToDoDto update(Long id, ToDoDto dto){
         ToDoEntity entity = repository.findById(id)
-                .orElseThrow(()-> new ToDoNotFoundException("ToDo not found with id: "+ id));
+                .orElseThrow(() -> new ToDoNotFoundException("ToDo not found with id: " + id));
+
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
-        entity.setCompleted(dto.getCompleted());
+
+        entity.setCompleted(dto.isCompleted());
+
         entity = repository.save(entity);
         return mapper.toDto(entity);
     }
